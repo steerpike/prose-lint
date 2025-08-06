@@ -1,6 +1,6 @@
 /**
  * Hedging - Detection of uncertain, tentative language
- * Ported from proselint checks
+ * Enhanced with patterns from writing-style-checker
  */
 
 import { existenceCheck } from '../utils';

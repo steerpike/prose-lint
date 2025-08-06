@@ -1,6 +1,6 @@
 /**
  * Weasel Words - Detection of weak, vague language
- * Ported from proselint checks
+ * Enhanced with patterns from writing-style-checker
  */
 
 import { existenceCheck } from '../utils';
@@ -23,10 +23,36 @@ export function checkVery(text: string): Omit<ProseLintError, 'line' | 'column'>
 }
 
 /**
- * Check for various weasel words - vague, imprecise language
+ * Check for various weasel words - comprehensive list combining proselint and writing-style-checker patterns
  */
 export function checkWeaselWords(text: string): Omit<ProseLintError, 'line' | 'column'>[] {
+    // Enhanced list combining both implementations
     const weaselWords = [
+        // From writing-style-checker (common weak words)
+        'many',
+        'various',
+        'fairly',
+        'several',
+        'extremely',
+        'exceedingly',
+        'quite',
+        'remarkably',
+        'few',
+        'surprisingly',
+        'mostly',
+        'largely',
+        'huge',
+        'tiny',
+        'excellent',
+        'interestingly',
+        'significantly',
+        'substantially',
+        'clearly',
+        'vast',
+        'relatively',
+        'completely',
+
+        // From original proselint (verbose phrases)
         'a number of',
         'all things being equal',
         'as a matter of fact',
@@ -54,7 +80,11 @@ export function checkWeaselWords(text: string): Omit<ProseLintError, 'line' | 'c
         'it should be noted',
         'needless to say',
         'to be sure',
-        'without a doubt'
+        'without a doubt',
+
+        // Additional patterns for numeric expressions
+        'are a number',
+        'is a number'
     ];
 
     return existenceCheck(

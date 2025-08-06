@@ -1,6 +1,6 @@
 /**
  * Phase 3 Check Registration
- * Registers all production-ready proselint checks
+ * Enhanced with passive voice checks from writing-style-checker
  */
 
 import { CheckRegistry } from './checkRegistry';
@@ -23,6 +23,10 @@ import {
     checkCliches,
     checkHellCliches
 } from './checks/cliches';
+import {
+    checkPassiveVoice,
+    checkPassiveVoiceAdvanced
+} from './checks/passiveVoice';
 
 /**
  * Register all Phase 3 checks with the registry
@@ -110,6 +114,25 @@ export function registerPhase3Checks(registry: CheckRegistry): void {
         category: 'cliches',
         severity: 'suggestion',
         enabled: true,
+        source: 'proselint'
+    });
+
+    // Passive Voice Category
+    registry.registerCheck('passive_voice.construction', checkPassiveVoice, {
+        name: 'Passive Voice',
+        description: 'Detect passive voice constructions and suggest active alternatives.',
+        category: 'passive_voice',
+        severity: 'suggestion',
+        enabled: true,
+        source: 'proselint'
+    });
+
+    registry.registerCheck('passive_voice.advanced', checkPassiveVoiceAdvanced, {
+        name: 'Advanced Passive Voice',
+        description: 'Advanced passive voice detection with better context analysis.',
+        category: 'passive_voice',
+        severity: 'suggestion',
+        enabled: false, // Disabled by default to avoid duplicate detection
         source: 'proselint'
     });
 }

@@ -198,6 +198,7 @@ Based on analysis of the original proselint repository structure, the following 
 | `redundancy/` | `misc.py`, `ras_syndrome.py` | `src/checks/redundancy.ts` | ✅ **COMPLETE** | High |
 | `hedging/` | `hedging.py` | `src/checks/hedging.ts` | ✅ **COMPLETE** | High |
 | `cliches/` | `hell.py`, `misc.py` | `src/checks/cliches.ts` | ✅ **COMPLETE** | Medium |
+| `passive_voice/` | Not in original proselint | `src/checks/passiveVoice.ts` | ✅ **NEW ADDITION** | High |
 | **Missing Critical Categories** | | | | |
 | `dates_times/` | Date/time formatting | ❌ **MISSING** | ❌ **NOT IMPLEMENTED** | Medium |
 | `misc/` | Various style issues | ❌ **MISSING** | ❌ **NOT IMPLEMENTED** | High |
@@ -225,9 +226,15 @@ Based on analysis of the original proselint repository structure, the following 
 #### 5.2 Implementation Coverage Summary
 
 **Current Status:**
-- ✅ **Implemented**: 4 out of ~20 major check categories (20% coverage)
-- ✅ **Working Checks**: 9 specific check functions
-- ❌ **Missing**: ~16 major check categories (80% missing)
+- ✅ **Implemented**: 5 out of ~20 major check categories (25% coverage)
+- ✅ **Working Checks**: 11 specific check functions
+- ❌ **Missing**: ~15 major check categories (75% missing)
+
+**Recent Enhancements (Latest Update):**
+- ✅ **Enhanced Weasel Words**: Merged comprehensive pattern list from writing-style-checker
+- ✅ **NEW: Passive Voice Detection**: Added sophisticated passive voice detection with irregular past participles
+- ✅ **Improved Pattern Matching**: Better coverage of weak language patterns
+- ✅ **Context-Aware Filtering**: Reduced false positives in passive voice detection
 
 **Critical Gaps Identified:**
 1. **Typography checks** - Essential for professional writing

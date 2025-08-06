@@ -340,11 +340,14 @@ export default class ProseLintPlugin extends Plugin {
 	}
 
 	onunload() {
+		console.log('ProseLint plugin unloading...');
+
 		// Cleanup editor linting
-		const activeView = this.app.workspace.getActiveViewOfType(MarkdownView);
-		if (activeView && this.editorLinting) {
-			this.editorLinting.disableLinting(activeView.editor);
+		if (this.editorLinting) {
+			this.editorLinting.dispose();
 		}
+
+		console.log('ProseLint plugin unloaded');
 	}
 
 	async loadSettings() {

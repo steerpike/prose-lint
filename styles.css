@@ -1,0 +1,294 @@
+/*
+Prose Lint Plugin Styles
+*/
+
+/* Error highlighting classes for CodeMirror text markers */
+.prose-lint-error {
+    background-color: rgba(255, 0, 0, 0.15);
+    border-bottom: 2px wavy #dc3545;
+    position: relative;
+}
+
+.prose-lint-warning {
+    background-color: rgba(255, 193, 7, 0.15);
+    border-bottom: 2px wavy #ffc107;
+    position: relative;
+}
+
+.prose-lint-suggestion {
+    background-color: rgba(13, 202, 240, 0.15);
+    border-bottom: 2px wavy #0dcaf0;
+    position: relative;
+}
+
+/* Hover effects for error highlights */
+.prose-lint-error:hover,
+.prose-lint-warning:hover,
+.prose-lint-suggestion:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: help;
+}
+
+/* Legacy styles for modal panels - now prefixed to avoid conflicts */
+
+/* Lint Result Modal */
+.prose-lint-summary {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--background-secondary);
+    border-radius: 5px;
+}
+
+.prose-lint-modal-error-section {
+    margin-bottom: 20px;
+}
+
+.prose-lint-check-header {
+    color: var(--text-accent);
+    border-bottom: 1px solid var(--background-modifier-border);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.prose-lint-modal-error {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-left: 3px solid var(--background-modifier-border);
+    background-color: var(--background-secondary);
+}
+
+.prose-lint-modal-error.prose-lint-error {
+    border-left-color: var(--text-error);
+}
+
+.prose-lint-modal-error.prose-lint-warning {
+    border-left-color: var(--text-warning);
+}
+
+.prose-lint-modal-error.prose-lint-suggestion {
+    border-left-color: var(--text-accent);
+}
+
+.prose-lint-location {
+    font-size: 0.9em;
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+.prose-lint-message {
+    margin: 5px 0;
+    color: var(--text-normal);
+}
+
+.prose-lint-source {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.prose-lint-suggestions {
+    margin-top: 8px;
+    padding: 5px;
+    background-color: var(--background-primary);
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.prose-lint-buttons {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.prose-lint-buttons button {
+    padding: 8px 16px;
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.prose-lint-buttons button:hover {
+    background-color: var(--interactive-accent-hover);
+}
+
+/* Settings */
+.prose-lint-category {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 5px;
+}
+
+/* Phase 4: Real-time Error Highlighting Styles */
+
+/* Base error highlighting */
+.prose-lint-error {
+    position: relative;
+    border-bottom: 2px solid;
+    background-color: rgba(255, 165, 0, 0.3) !important;
+    color: inherit !important;
+    text-decoration: underline wavy orange !important;
+    padding: 1px 2px !important;
+    border-radius: 2px !important;
+}
+
+/* Severity-specific colors */
+.prose-lint-error.prose-lint-suggestion {
+    border-bottom-color: var(--text-accent);
+    border-bottom-style: dotted;
+    background-color: rgba(0, 150, 255, 0.2) !important;
+    text-decoration: underline dotted blue !important;
+}
+
+.prose-lint-error.prose-lint-warning {
+    border-bottom-color: var(--text-warning);
+    border-bottom-style: wavy;
+    background-color: rgba(255, 193, 7, 0.3) !important;
+    text-decoration: underline wavy orange !important;
+}
+
+.prose-lint-error.prose-lint-error {
+    border-bottom-color: var(--text-error);
+    border-bottom-style: solid;
+    background-color: rgba(255, 0, 0, 0.2) !important;
+    text-decoration: underline solid red !important;
+}
+
+/* Hover effects */
+.prose-lint-error:hover {
+    background-color: var(--background-modifier-hover);
+    border-radius: 3px;
+    cursor: help;
+}
+
+/* Editor container when errors are present */
+.prose-lint-has-errors {
+    border-left: 3px solid var(--text-warning);
+    background-color: var(--background-modifier-hover);
+}
+
+/* Status indicator for real-time linting */
+.prose-lint-status {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: var(--text-warning) !important;
+    color: var(--text-on-accent) !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+/* Error panel styles */
+.prose-lint-panel {
+    padding: 10px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    background-color: var(--background-primary);
+}
+
+.prose-lint-panel-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.prose-lint-error-count {
+    background-color: var(--background-modifier-error);
+    color: var(--text-on-accent);
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+.prose-lint-error-item {
+    margin-bottom: 8px;
+    padding: 8px;
+    border-left: 3px solid;
+    background-color: var(--background-secondary);
+    border-radius: 0 4px 4px 0;
+}
+
+.prose-lint-error-item.suggestion {
+    border-left-color: var(--text-accent);
+}
+
+.prose-lint-error-item.warning {
+    border-left-color: var(--text-warning);
+}
+
+.prose-lint-error-item.error {
+    border-left-color: var(--text-error);
+}
+
+.prose-lint-error-message {
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+
+.prose-lint-error-location {
+    font-size: 0.8em;
+    color: var(--text-muted);
+    font-family: var(--font-monospace);
+}
+
+.prose-lint-error-text {
+    font-family: var(--font-monospace);
+    background-color: var(--background-modifier-border);
+    padding: 2px 4px;
+    border-radius: 2px;
+    margin: 4px 0;
+    display: inline-block;
+}
+
+/* Status bar integration */
+.prose-lint-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.prose-lint-status-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.prose-lint-status-text {
+    font-size: 0.8em;
+}
+
+/* Buttons and actions */
+.prose-lint-button {
+    background-color: var(--interactive-normal);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.2s;
+}
+
+.prose-lint-button:hover {
+    background-color: var(--interactive-hover);
+}
+
+.prose-lint-button:active {
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+.prose-lint-button.primary {
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+.prose-lint-button.primary:hover {
+    background-color: var(--interactive-accent-hover);
+}

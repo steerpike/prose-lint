@@ -1,0 +1,11 @@
+{
+	"id": "prose-lint",
+	"name": "Prose Lint",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "A prose linting plugin for Obsidian.",
+	"author": "Sam Dwyer",
+	"authorUrl": "",
+	"fundingUrl": "",
+	"isDesktopOnly": false
+}

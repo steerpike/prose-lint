@@ -1023,7 +1023,7 @@ export class EditorLinting {
                 if (current.nodeType === Node.TEXT_NODE) {
                     const textContent = current.textContent || '';
                     const parent = current.parentNode;
-                    
+
                     // Find the position of this text node within its parent
                     let precedingLength = 0;
                     for (let i = 0; i < parent.childNodes.length; i++) {
@@ -1033,7 +1033,7 @@ export class EditorLinting {
                             precedingLength += sibling.textContent?.length || 0;
                         }
                     }
-                    
+
                     offset += precedingLength;
                     break;
                 }
@@ -1070,11 +1070,11 @@ export class EditorLinting {
             // Find the error that matches this element's position and text
             return this.currentErrors.find(error => {
                 if (!this.activeEditor) return false;
-                
+
                 // Check if the element's position falls within the error's range
                 const errorStart = error.start;
                 const errorEnd = error.end;
-                
+
                 // The element should start at or after the error start
                 // and end at or before the error end
                 if (elementOffset >= errorStart && elementOffset < errorEnd) {
@@ -1086,7 +1086,7 @@ export class EditorLinting {
                     const errorText = this.activeEditor.getRange(startPos, endPos);
                     return errorText === text;
                 }
-                
+
                 return false;
             }) || null;
 

@@ -1,24 +1,24 @@
 /**
- * Test suite for Phase 3: Comprehensive Check Implementation
- * Tests all production-ready proselint checks
+ * Test suite for Style Checks
+ * Tests weasel words, redundancy, hedging, clichés, and passive voice checks
  */
 
 import { CheckRegistry } from '../src/checkRegistry';
 import { ProselintEngine } from '../src/proselintEngine';
 import { LintConfig } from '../src/types';
-import { registerPhase3Checks } from '../src/phase3Checks';
+import { registerStyleChecks } from '../src/styleChecks';
 
 /**
  * Run Phase 3 tests
  */
-export async function runPhase3Tests(): Promise<void> {
-    console.log('Running Phase 3 Tests...');
+export async function runStyleChecksTests(): Promise<void> {
+    console.log('Running Style Checks Tests...');
 
     try {
         // Test 1: Check Registry
-        console.log('Testing Phase 3 check registration...');
-        await testPhase3CheckRegistry();
-        console.log('✓ Phase 3 check registry tests passed');
+        console.log('Testing style checks registration...');
+        await testStyleChecksRegistry();
+        console.log('✓ Style checks registry tests passed');
 
         // Test 2: Weasel Words Category
         console.log('Testing weasel words checks...');
@@ -45,17 +45,17 @@ export async function runPhase3Tests(): Promise<void> {
         await testComprehensiveIntegration();
         console.log('✓ Comprehensive integration tests passed');
 
-        console.log('✓ All Phase 3 tests passed');
+        console.log('✓ All style checks tests passed');
 
     } catch (error) {
-        console.error('✗ Phase 3 tests failed:', error);
+        console.error('✗ Style checks tests failed:', error);
         throw error;
     }
 }
 
-async function testPhase3CheckRegistry(): Promise<void> {
+async function testStyleChecksRegistry(): Promise<void> {
     const registry = new CheckRegistry();
-    registerPhase3Checks(registry);
+    registerStyleChecks(registry);
 
     // Check that all expected checks are registered
     const expectedChecks = [
@@ -92,7 +92,7 @@ async function testPhase3CheckRegistry(): Promise<void> {
 
 async function testWeaselWordsChecks(): Promise<void> {
     const registry = new CheckRegistry();
-    registerPhase3Checks(registry);
+    registerStyleChecks(registry);
 
     const config: LintConfig = {
         checks: {},
@@ -139,7 +139,7 @@ async function testWeaselWordsChecks(): Promise<void> {
 
 async function testRedundancyChecks(): Promise<void> {
     const registry = new CheckRegistry();
-    registerPhase3Checks(registry);
+    registerStyleChecks(registry);
 
     const config: LintConfig = {
         checks: {},
@@ -169,7 +169,7 @@ async function testRedundancyChecks(): Promise<void> {
 
 async function testHedgingChecks(): Promise<void> {
     const registry = new CheckRegistry();
-    registerPhase3Checks(registry);
+    registerStyleChecks(registry);
 
     const config: LintConfig = {
         checks: {},
@@ -199,7 +199,7 @@ async function testHedgingChecks(): Promise<void> {
 
 async function testClichesChecks(): Promise<void> {
     const registry = new CheckRegistry();
-    registerPhase3Checks(registry);
+    registerStyleChecks(registry);
 
     const config: LintConfig = {
         checks: {},
@@ -229,7 +229,7 @@ async function testClichesChecks(): Promise<void> {
 
 async function testComprehensiveIntegration(): Promise<void> {
     const registry = new CheckRegistry();
-    registerPhase3Checks(registry);
+    registerStyleChecks(registry);
 
     const config: LintConfig = {
         checks: {},

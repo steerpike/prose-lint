@@ -1,11 +1,11 @@
 /**
- * Phase 3 Check Registration
- * Enhanced with passive voice checks from writing-style-checker
+ * Style Checks Registration
+ * Weasel words, redundancy, hedging, clichés, and passive voice
  */
 
 import { CheckRegistry } from './checkRegistry';
 
-// Import Phase 3 production checks
+// Import style check implementations
 import {
     checkVery as checkVeryProd,
     checkWeaselWords,
@@ -29,9 +29,9 @@ import {
 } from './checks/passiveVoice';
 
 /**
- * Register all Phase 3 checks with the registry
+ * Register all style checks (weasel words, redundancy, hedging, clichés, passive voice)
  */
-export function registerPhase3Checks(registry: CheckRegistry): void {
+export function registerStyleChecks(registry: CheckRegistry): void {
     // Weasel Words Category
     registry.registerCheck('weasel_words.very', checkVeryProd, {
         name: 'Remove "Very"',

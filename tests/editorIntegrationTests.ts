@@ -1,5 +1,5 @@
 /**
- * Phase 4 Tests: Real-time Editor Integration
+ * Editor Integration Tests
  * Tests for EditorLinting and ErrorDisplayPanel functionality
  */
 
@@ -7,7 +7,7 @@ import { EditorLinting } from '../src/editorLinting';
 import { ErrorDisplayPanel } from '../src/errorDisplayPanel';
 import { ProselintEngine } from '../src/proselintEngine';
 import { CheckRegistry } from '../src/checkRegistry';
-import { registerPhase3Checks } from '../src/phase3Checks';
+import { registerStyleChecks } from '../src/styleChecks';
 
 /**
  * Mock Editor implementation for testing
@@ -38,7 +38,7 @@ export async function testEditorLinting(): Promise<boolean> {
     try {
         // Setup engine with Phase 3 checks
         const registry = new CheckRegistry();
-        registerPhase3Checks(registry);
+        registerStyleChecks(registry);
         const engine = new ProselintEngine(registry, {
             maxErrors: 100,
             checks: {},
@@ -88,7 +88,7 @@ export async function testErrorHighlighting(): Promise<boolean> {
     try {
         // Setup engine
         const registry = new CheckRegistry();
-        registerPhase3Checks(registry);
+        registerStyleChecks(registry);
         const engine = new ProselintEngine(registry, {
             maxErrors: 100,
             checks: {},
@@ -175,7 +175,7 @@ export async function testRealTimeLintingPerformance(): Promise<boolean> {
     try {
         // Setup engine
         const registry = new CheckRegistry();
-        registerPhase3Checks(registry);
+        registerStyleChecks(registry);
         const engine = new ProselintEngine(registry, {
             maxErrors: 100,
             checks: {},
@@ -226,8 +226,8 @@ export async function testRealTimeLintingPerformance(): Promise<boolean> {
 /**
  * Run all Phase 4 tests
  */
-export async function runPhase4Tests(): Promise<boolean> {
-    console.log('\n=== Phase 4 Tests: Real-time Editor Integration ===');
+export async function runEditorIntegrationTests(): Promise<boolean> {
+    console.log('\n=== Editor Integration Tests ===');
 
     const tests = [
         { name: 'EditorLinting', test: testEditorLinting },

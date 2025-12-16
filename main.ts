@@ -4,11 +4,15 @@ import { CheckRegistry } from './src/checkRegistry';
 import { LintConfig, ProseLintError } from './src/types';
 import { checkVery, checkHedging, checkRedundancy } from './src/checks/testChecks';
 import { LintResultModal } from './src/lintResultModal';
-import { runPhase2Tests } from './tests/phase2Tests';
-import { runPhase3Tests } from './tests/phase3Tests';
-import { runPhase4Tests } from './tests/phase4Tests';
+import { runEngineTests } from './tests/engineTests';
+import { runStyleChecksTests } from './tests/styleChecksTests';
+import { runEditorIntegrationTests } from './tests/editorIntegrationTests';
+import { runComprehensiveTests } from './tests/comprehensiveTest';
 import { debugRedundancyCheck } from './debug/redundancyDebug';
-import { registerPhase3Checks } from './src/phase3Checks';
+import { registerStyleChecks } from './src/styleChecks';
+import { registerTypographySpellingChecks } from './src/typographySpellingChecks';
+import { registerMiscChecks } from './src/miscChecks';
+import { registerSocialAwarenessChecks } from './src/socialAwarenessChecks';
 import { ErrorDisplayPanel, PROSE_LINT_VIEW_TYPE } from './src/errorDisplayPanel';
 import { EditorLinting } from './src/editorLinting';
 import './debug/directTest';
@@ -40,7 +44,7 @@ export default class ProseLintPlugin extends Plugin {
 		// Initialize the linting system
 		this.initializeLintingSystem();
 
-		// Initialize editor linting (Phase 4)
+		// Initialize real-time editor linting with highlighting
 		this.editorLinting = new EditorLinting(this.lintEngine, {
 			debounceMs: 1000,
 			maxErrors: this.settings.maxErrors,
@@ -49,7 +53,7 @@ export default class ProseLintPlugin extends Plugin {
 			showTooltips: true
 		});
 
-		// Register the error panel view (Phase 4)
+		// Register the error panel view for displaying lint results
 		this.registerView(
 			PROSE_LINT_VIEW_TYPE,
 			(leaf) => new ErrorDisplayPanel(leaf)
@@ -76,51 +80,70 @@ export default class ProseLintPlugin extends Plugin {
 			}
 		});
 
-		// Phase 2 test command
+		// Test command: Engine tests
 		this.addCommand({
-			id: 'prose-lint-phase2-tests',
-			name: 'Run Phase 2 Tests',
+			id: 'prose-lint-engine-tests',
+			name: 'Run Engine Tests',
 			callback: () => {
-				runPhase2Tests();
+				runEngineTests();
 			}
 		});
 
-		// Phase 3 test command
+		// Test command: Style checks tests
 		this.addCommand({
-			id: 'prose-lint-phase3-tests',
-			name: 'Run Phase 3 Tests',
+			id: 'prose-lint-style-checks-tests',
+			name: 'Run Style Checks Tests',
 			callback: () => {
-				runPhase3Tests().then(() => {
-					new Notice('Phase 3 tests completed - check console for results');
+				runStyleChecksTests().then(() => {
+					new Notice('Style checks tests completed - check console for results');
 				}).catch(error => {
-					new Notice('Phase 3 tests failed - check console for details');
-					console.error('Phase 3 test error:', error);
+					new Notice('Style checks tests failed - check console for details');
+					console.error('Style checks test error:', error);
 				});
 			}
 		});
 
-		// Phase 4 test command
+		// Test command: Integration tests
 		this.addCommand({
-			id: 'prose-lint-phase4-tests',
-			name: 'Run Phase 4 Tests (Real-time Integration)',
+			id: 'prose-lint-integration-tests',
+			name: 'Run Integration Tests',
 			callback: () => {
-				runPhase4Tests().then(() => {
-					new Notice('Phase 4 tests completed - check console for results');
-				}).catch(error => {
-					new Notice('Phase 4 tests failed - check console for details');
-					console.error('Phase 4 test error:', error);
+				runEditorIntegrationTests().then((success) => {
+					if (success) {
+						new Notice('Integration tests passed!');
+					} else {
+						new Notice('Some integration tests failed - check console');
+					}
+				}).catch((error: Error) => {
+					new Notice('Integration tests failed - check console for details');
+					console.error('Integration test error:', error);
 				});
 			}
 		});
 
-		// Command to show error panel (Phase 4)
+		// Test command: Comprehensive check tests
+		this.addCommand({
+			id: 'prose-lint-comprehensive-tests',
+			name: 'Run Comprehensive Tests (All 30 Checks)',
+			callback: () => {
+				try {
+					runComprehensiveTests();
+					new Notice('Comprehensive tests complete - check console');
+				} catch (error) {
+					new Notice('Comprehensive tests failed - check console');
+					console.error('Comprehensive test error:', error);
+				}
+			}
+		});
+
+		// Command to show error panel
 		this.addCommand({
 			id: 'prose-lint-show-panel',
 			name: 'Show Prose Lint Error Panel',
 			callback: () => this.showErrorPanel()
 		});
 
-		// Command to toggle real-time linting (Phase 4)
+		// Command to toggle real-time linting
 		this.addCommand({
 			id: 'prose-lint-toggle-realtime',
 			name: 'Toggle Real-time Prose Linting',
@@ -207,10 +230,19 @@ export default class ProseLintPlugin extends Plugin {
 		// Create and configure the check registry
 		this.checkRegistry = new CheckRegistry();
 
-		// Register Phase 3 production checks
-		registerPhase3Checks(this.checkRegistry);
+		// Register style checks (weasel words, redundancy, hedging, clichés, passive voice)
+		registerStyleChecks(this.checkRegistry);
 
-		// Keep test checks for Phase 2 testing (disabled by default)
+		// Register typography and spelling checks (dashes, ellipsis, symbols, misspellings)
+		registerTypographySpellingChecks(this.checkRegistry);
+
+		// Register misc checks (capitalization, preferred forms, phrasal adjectives, etc.)
+		registerMiscChecks(this.checkRegistry);
+
+		// Register social awareness checks (gender bias, LGBTQ+, race/ethnicity)
+		registerSocialAwarenessChecks(this.checkRegistry);
+
+		// Register test checks for development testing (disabled by default)
 		this.checkRegistry.registerCheck('test.weasel_words.very', checkVery, {
 			name: 'Test: Avoid "very"',
 			description: 'Test implementation of "very" detection',
@@ -263,7 +295,7 @@ export default class ProseLintPlugin extends Plugin {
 	}
 
 	/**
-	 * Show or create the error panel (Phase 4)
+	 * Show or create the error panel
 	 */
 	private async showErrorPanel() {
 		const existingLeaf = this.app.workspace.getLeavesOfType(PROSE_LINT_VIEW_TYPE)[0];
@@ -302,7 +334,7 @@ export default class ProseLintPlugin extends Plugin {
 	}
 
 	/**
-	 * Toggle real-time linting on/off (Phase 4)
+	 * Toggle real-time linting on/off
 	 */
 	private toggleRealTimeLinting() {
 		console.log('toggleRealTimeLinting called');
@@ -332,7 +364,7 @@ export default class ProseLintPlugin extends Plugin {
 	}
 
 	/**
-	 * Get the error panel instance if it exists (Phase 4)
+	 * Get the error panel instance if it exists
 	 */
 	private getErrorPanel(): ErrorDisplayPanel | null {
 		const leaf = this.app.workspace.getLeavesOfType(PROSE_LINT_VIEW_TYPE)[0];

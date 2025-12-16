@@ -1,5 +1,6 @@
 /**
- * Test suite for Phase 2: Core Linting Engine
+ * Test suite for Core Linting Engine
+ * Tests CheckRegistry, ProselintEngine, and basic check functionality
  */
 
 import { CheckRegistry } from '../src/checkRegistry';
@@ -18,8 +19,8 @@ const testConfig: LintConfig = {
     severityOverrides: {}
 };
 
-export function runPhase2Tests(): boolean {
-    console.log('Running Phase 2 Tests...');
+export function runEngineTests(): boolean {
+    console.log('Running Engine Tests...');
 
     let allTestsPassed = true;
 

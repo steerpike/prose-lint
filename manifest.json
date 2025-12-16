@@ -1,9 +1,9 @@
 {
 	"id": "prose-lint",
 	"name": "Prose Lint",
-	"version": "1.0.0",
+	"version": "0.9.0",
 	"minAppVersion": "0.15.0",
-	"description": "A prose linting plugin for Obsidian.",
+	"description": "Improve your writing with 30 real-time checks for style, clarity, typography, and inclusive language. Based on proselint.",
 	"author": "Sam Dwyer",
 	"authorUrl": "",
 	"fundingUrl": "",

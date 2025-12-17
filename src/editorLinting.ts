@@ -239,12 +239,23 @@ export class EditorLinting {
                 const cssClass = this.getSeverityCssClass(error.severity);
                 console.log('Using CSS class:', cssClass);
 
+                // Debug logging for tooltip issues
+                if (!error.message || error.message.trim() === '') {
+                    console.warn('Empty or missing error message for:', {
+                        check: error.check,
+                        text: text,
+                        start: start,
+                        end: end,
+                        errorObject: error
+                    });
+                }
+
                 const marker = markTextMethod(
                     { line: start.line, ch: start.ch },
                     { line: end.line, ch: end.ch },
                     {
                         className: cssClass,
-                        title: error.message,
+                        title: error.message || `Check: ${error.check}`,
                         clearOnEnter: false,
                         inclusiveLeft: false,
                         inclusiveRight: false
@@ -1323,7 +1334,10 @@ export class EditorLinting {
                         // Create highlight span
                         const span = document.createElement('span');
                         span.className = `prose-lint-error prose-lint-${error.severity}`;
-                        span.title = error.message;
+                        span.title = error.message || `Check: ${error.check}`;
+                        if (!error.message) {
+                            console.warn('Missing message for error:', error.check, targetText);
+                        }
                         span.style.backgroundColor = 'rgba(255, 165, 0, 0.3)'; // Orange highlight
                         span.style.borderBottom = '2px wavy orange';
                         span.style.padding = '1px 2px';
@@ -1417,7 +1431,10 @@ export class EditorLinting {
                 targetNodes.forEach(nodeInfo => {
                     const span = document.createElement('span');
                     span.className = `prose-lint-error prose-lint-${error.severity}`;
-                    span.title = error.message;
+                    span.title = error.message || `Check: ${error.check}`;
+                    if (!error.message) {
+                        console.warn('Missing message for error:', error.check, error);
+                    }
                     span.style.backgroundColor = 'rgba(255, 165, 0, 0.3)'; // Orange highlight
                     span.style.borderBottom = '2px wavy orange';
 

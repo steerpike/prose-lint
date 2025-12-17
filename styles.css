@@ -29,6 +29,20 @@ Prose Lint Plugin Styles
     cursor: help;
 }
 
+/* Fix for markdown elements blocking tooltips in lists and formatted text */
+/* Allow hover events to pass through CodeMirror's markdown wrapper spans */
+.cm-list-1, .cm-list-2, .cm-list-3,
+.cm-formatting, .cm-formatting-list, .cm-formatting-list-ul, .cm-formatting-list-ol,
+.cm-em, .cm-strong, .cm-link, .cm-url,
+.cm-header, .cm-quote {
+    pointer-events: none !important;
+}
+
+/* Ensure our error highlights still receive pointer events for tooltips */
+.prose-lint-error, .prose-lint-warning, .prose-lint-suggestion {
+    pointer-events: auto !important;
+}
+
 /* Legacy styles for modal panels - now prefixed to avoid conflicts */
 
 /* Lint Result Modal */

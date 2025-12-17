@@ -29,15 +29,17 @@ export function checkCapitalization(text: string): Omit<ProseLintError, 'line' |
     ];
     
     // Months that should be capitalized
+    // Note: march, may, and august are commented out due to high false positive rates
+    // (march as verb, may as modal, august as adjective)
     const months: [RegExp, string, string][] = [
         [/\bjanuary\b/g, 'january', 'January'],
         [/\bfebruary\b/g, 'february', 'February'],
-        [/\bmarch\b(?! \d)/g, 'march', 'March'], // Avoid false positives with "march 5 miles"
+        // [/\bmarch\b/g, 'march', 'March'], // Too many false positives with "march" as verb
         [/\bapril\b/g, 'april', 'April'],
-        [/\bmay\b(?! be| have| not)/g, 'may', 'May'], // Avoid false positives with "may be"
+        // [/\bmay\b/g, 'may', 'May'], // Too many false positives with modal verb "may"
         [/\bjune\b/g, 'june', 'June'],
         [/\bjuly\b/g, 'july', 'July'],
-        [/\baugust\b/g, 'august', 'August'],
+        // [/\baugust\b/g, 'august', 'August'], // Too many false positives with "august" as adjective
         [/\bseptember\b/g, 'september', 'September'],
         [/\boctober\b/g, 'october', 'October'],
         [/\bnovember\b/g, 'november', 'November'],
